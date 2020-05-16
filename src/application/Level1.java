@@ -55,12 +55,12 @@ public class Level1 {
 			public void run() {
 				while (true) {
 					GameController.movePacman();
-					GameController.killcheck(GameController.ghost1);
-					GameController.killcheck(GameController.ghost2);
-					GameController.moveGhost(GameController.ghost1);
-					GameController.moveGhost(GameController.ghost2);
-					GameController.killcheck(GameController.ghost1);
-					GameController.killcheck(GameController.ghost2);
+					GameController.killcheck(GameController.getGhost1());
+					GameController.killcheck(GameController.getGhost2());
+					GameController.moveGhost(GameController.getGhost1());
+					GameController.moveGhost(GameController.getGhost2());
+					GameController.killcheck(GameController.getGhost1());
+					GameController.killcheck(GameController.getGhost2());
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
@@ -105,10 +105,10 @@ public class Level1 {
 			}
 			y += 1;
 		}
-		DrawUtil.drawSprite(gc, draw_originx + GameController.ghost1.getX() * 24,
-				draw_originy + GameController.ghost1.getY() * 24, GameController.getGhost1Sprite());
-		DrawUtil.drawSprite(gc, draw_originx + GameController.ghost2.getX() * 24,
-				draw_originy + GameController.ghost2.getY() * 24, GameController.getGhost2Sprite());
+		DrawUtil.drawSprite(gc, draw_originx + GameController.getGhost1X() * 24,
+				draw_originy + GameController.getGhost1Y() * 24, GameController.getGhost1Sprite());
+		DrawUtil.drawSprite(gc, draw_originx + GameController.getGhost2X() * 24,
+				draw_originy + GameController.getGhost2Y() * 24, GameController.getGhost2Sprite());
 		DrawUtil.drawPacman(gc, draw_originx + GameController.getPacmanX() * 24,
 				draw_originy + GameController.getPacmanY() * 24, GameController.getPacmanDirection());
 		gc.setFill(Color.WHITE);

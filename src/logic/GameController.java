@@ -7,6 +7,7 @@ import application.Sound;
 import entity.Ghost1;
 import entity.Ghost2;
 import entity.Pacman;
+import entity.base.Entity;
 import entity.base.Ghost;
 import entity.base.MovingEntity;
 
@@ -15,8 +16,8 @@ public class GameController {
 	private static GameMap gameMap;
 
 	private static Pacman pacman;
-	public static Ghost1 ghost1;
-	public static Ghost2 ghost2;
+	private static Ghost1 ghost1;
+	private static Ghost2 ghost2;
 
 	private static int score;
 
@@ -73,8 +74,9 @@ public class GameController {
 
 	}
 
-	public static boolean killcheck(Ghost ghost) {
-		
+	public static boolean killcheck(Object object) {
+		if(object instanceof Ghost) {
+		Ghost ghost = (Ghost) object;
 		if (powerUpTimeCount == 50 * getPowerupCount()) {
 			setPowerUp(false);
 			setPowerUpTimeCount(0);
@@ -93,28 +95,30 @@ public class GameController {
 				return true;
 			}
 		}
-		
+		}
 		return false;
-
+		
 	}
 
-	public static void moveGhost(MovingEntity ghost) {
+	public static void moveGhost(Object object) {
+		if(object instanceof MovingEntity) {
+		MovingEntity ghost = (MovingEntity)object;
 		if (isPowerUp() == false) {
 			if (ghost.getX() == pacman.getX()) {
-				if (ghost.getY() > pacman.getY()) {
+				if (((MovingEntity) ghost).getY() > pacman.getY()) {
 					setDirection(ghost, Direction.UP);
 				} else {
 					setDirection(ghost, Direction.DOWN);
 				}
 			} else if (ghost.getY() == pacman.getY()) {
-				if (ghost.getX() > pacman.getX()) {
+				if (((MovingEntity) ghost).getX() > pacman.getX()) {
 					setDirection(ghost, Direction.LEFT);
 				} else {
 					setDirection(ghost, Direction.RIGHT);
 				}
 			}
 		} else {
-			if (ghost.getX() == pacman.getX()) {
+			if ( ghost.getX() == pacman.getX()) {
 				if (ghost1.getY() > pacman.getY()) {
 					setDirection(ghost, Direction.DOWN);
 				} else {
@@ -129,6 +133,7 @@ public class GameController {
 			}
 		}
 		randomMove(ghost);
+		}
 	}
 	public static void randomMove(MovingEntity ghost) {
 		Random r = new Random();
@@ -167,6 +172,30 @@ public class GameController {
 
 	public static int getPacmanY() {
 		return pacman.getY();
+	}
+	
+	public static int getGhost1X() {
+		return ghost1.getX();
+	}
+	
+	public static int getGhost1Y() {
+		return ghost1.getY();
+	}
+	
+	public static int getGhost2X() {
+		return ghost2.getX();
+	}
+	
+	public static int getGhost2Y() {
+		return ghost2.getY();
+	}
+	
+	public static Object getGhost1() {
+		return ghost1;
+	}
+	
+	public static Object getGhost2() {
+		return ghost2;
 	}
 
 	public static int getGhost1Sprite() {
